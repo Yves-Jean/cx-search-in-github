@@ -1,0 +1,28 @@
+{
+  "name": "@yves-jean/search-in-github-server",
+  "version": "1.0.0",
+  "description": "A simple, play with github API",
+  "main": "src/main.js",
+  "authors": [
+    "Yves Kouayip <kamwayves37@gmail.com>",
+    "Jean Porcher <jean.coding971@gmail.com>"
+  ],
+  "license": "ISC",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "efrei",
+    "git",
+    "githup",
+    "search",
+    "user"
+  ],
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "knex": "^0.21.12",
+    "pg": "^8.5.1"
+  }
+}
