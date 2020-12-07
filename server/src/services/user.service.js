@@ -1,7 +1,7 @@
-const knex = require("./knex/knex");
+const knex = require("../../knex/knex");
 
 const getUser = (username) => {
-  return knex("users").select().where("username", username);
+  return knex("users").select().where("login", username);
 };
 const insertUser = (user) => {
   return knex("users").insert(user);
