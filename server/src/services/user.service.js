@@ -1,5 +1,8 @@
 const knex = require("../../knex/knex");
 
+const getUserById = (id) => {
+  return knex("users").select().where("id", id);
+};
 const getUser = (username) => {
   return knex("users").select().where("login", username);
 };
@@ -14,6 +17,7 @@ const deletetUser = (id) => {
 };
 
 module.exports = {
+  getUserById,
   getUser,
   insertUser,
   updatetUser,

@@ -1,7 +1,7 @@
 const express = require("express");
 const PORT = process.argv[2] || 3001;
 const bodyParser = require("body-parser");
-const userProvider = require("./services/user.service");
+const userService = require("./services/user.service");
 const fetch = require("node-fetch");
 
 let cors = require("cors");
@@ -16,10 +16,10 @@ app.get("/", (req, res) => {
   res.send("Welcome on the search-in-github API!");
 });
 
-// Get all pokemons and project abstarct information {name, numero, numero}
 app.get("/users/:username", (req, res) => {
   const username = req.params.username;
-  userProvider
+
+  userService
     .getUser(username)
     .then((results) => {
       if (results.length === 0) {
@@ -28,19 +28,34 @@ app.get("/users/:username", (req, res) => {
             return data.json();
           })
           .then((user) => {
-            return userProvider
-              .insertUser(user)
-              .then((added) => {
-                res.json(user);
-              })
-              .catch((err) => {
-                res.status(500).json({
+            if (user.message === "Not Found") {
+              res.status(500).json([
+                {
                   error: true,
-                  data: {
-                    message: err.message,
-                  },
-                });
+                  message: "This user does not exist!",
+                },
+              ]);
+            } else {
+              userService.getUserById(user.id).then((result) => {
+                if (result.length === 0) {
+                  return userService
+                    .insertUser(user)
+                    .then((added) => {
+                      res.json([user]);
+                    })
+                    .catch((err) => {
+                      res.status(500).json({
+                        error: true,
+                        data: {
+                          message: err.message,
+                        },
+                      });
+                    });
+                } else {
+                  res.json(result);
+                }
               });
+            }
           })
           .catch(function (err) {
             console.log(err);

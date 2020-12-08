@@ -1,0 +1,19 @@
+.details-container {
+  width: 100%;
+}
+
+.details-list {
+  padding: 50px;
+  box-shadow: var(--box-shadow);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  &-item {
+    box-shadow: var(--box-shadow);
+    margin: 10px;
+    padding: 2rem;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+}
