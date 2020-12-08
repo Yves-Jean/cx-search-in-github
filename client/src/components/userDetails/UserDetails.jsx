@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { getUser } from "../../services/userService";
+import { LoadingContext } from "../loadingManager/LoadingManager";
 
 import "./userDetails.scss";
 
@@ -42,31 +43,41 @@ const initialUser = {
 const UserDetails = () => {
   const [username, setUsername] = useContext(UserContext);
   const [user, setUser] = useState(initialUser);
+  const [, setPendingRequest] = useContext(LoadingContext);
   useEffect(() => {
     if (username !== "") {
       getUser(username).then((result) => {
-        console.log(result);
+        // console.log(result);
         if (result[0].error) {
           setUsername("User not found");
-          return setUser(initialUser);
+          setUser(initialUser);
+          setPendingRequest(false);
+          return;
         }
         setUser(result[0]);
+        setPendingRequest(false);
       });
     } else {
       setUser(initialUser);
+      setPendingRequest(false);
     }
   }, [username]);
+
+  const displayUser = () => {
+    const result = Object.keys(user).map((field, key) => (
+      <div key={key} className="details-list-item ">
+        <div>{field} : </div>
+        <div> {user[field]}</div>
+      </div>
+    ));
+
+    return result;
+  };
+
   return (
     <div className="details-container mg-tp-4">
       <h1>{username}</h1>
-      <div className="details-list">
-        {Object.keys(user).map((field, key) => (
-          <div key={key} className="details-list-item ">
-            <div>{field} : </div>
-            <div> {user[field]}</div>
-          </div>
-        ))}
-      </div>
+      <div className="details-list">{displayUser()}</div>
     </div>
   );
 };

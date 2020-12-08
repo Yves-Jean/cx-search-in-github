@@ -1,16 +1,27 @@
-import React, { useContext, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 import "./searchBar.scss";
 import searchIcon from "../../assets/images/search.svg";
 import { UserContext } from "../../contexts/UserContext";
 
+import { LoadingContext } from "../loadingManager/LoadingManager";
+
 const SearchBar = () => {
   const [search, setSearch] = useState("");
-  const [username, setUsername] = useContext(UserContext);
+  const [, setUsername] = useContext(UserContext);
+  const [, setPendingRequest] = useContext(LoadingContext);
+
+  const [isChanged, setChange] = useState(false);
+
   const searchUser = () => {
-    setUsername(search);
+    if (search !== "" && isChanged) {
+      setPendingRequest(true);
+      setUsername(search);
+      setChange(false);
+    }
   };
   const handleChange = (e) => {
+    setChange(true);
     setSearch(e.target.value);
   };
 
