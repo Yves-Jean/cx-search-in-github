@@ -9,9 +9,9 @@
   ],
   "license": "ISC",
   "scripts": {
-    "knex-migrate": "knex migrate:latest",
-    "knex-seed": "knex seed:run",
-    "knex": "npm run knex-migrate && npm run knex-seed",
+    "knex": "knex migrate:latest",
+    "dev": "npx nodemon src/main.js",
+    "start": "node src/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

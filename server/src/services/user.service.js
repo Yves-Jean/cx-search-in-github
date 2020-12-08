@@ -4,7 +4,7 @@ const getUserById = (id) => {
   return knex("users").select().where("id", id);
 };
 const getUser = (username) => {
-  return knex("users").select().where("login", username);
+  return knex.select("*").from("users").where("login", username);
 };
 const insertUser = (user) => {
   return knex("users").insert(user);
