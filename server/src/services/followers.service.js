@@ -1,7 +1,7 @@
-// export const getFollowers = (username) => {};
+export const getFollowers = (username) => {};
 
-// export const insertFollower = (user) => {};
+export const insertFollower = (user) => {};
 
-// export const updatetFollowers = (id, user) => {};
+export const updatetFollowers = (id, user) => {};
 
-// export const deletetFollower = (id) => {};
+export const deletetFollower = (id) => {};

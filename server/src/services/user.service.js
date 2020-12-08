@@ -1,7 +1,17 @@
-const getUser = (username) => {};
-const insertUser = (user) => {};
-const updatetUser = (id, user) => {};
-const deletetUser = (id) => {};
+const knex = require("../../knex/knex");
+
+const getUser = (username) => {
+  return knex("users").select().where("login", username);
+};
+const insertUser = (user) => {
+  return knex("users").insert(user);
+};
+const updatetUser = (id, user) => {
+  return knex("users").update(user).where("id", id);
+};
+const deletetUser = (id) => {
+  return knex("users").delete().where("id", id);
+};
 
 module.exports = {
   getUser,
